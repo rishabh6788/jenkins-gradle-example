@@ -11,4 +11,8 @@ public class Library {
     public boolean someLibraryMethod() {
         return true;
     }
+
+    public boolean newLibraryMethod() {
+        return false;
+    }
 }
