@@ -35,7 +35,7 @@ pipeline {
         }
       }
     }
-    stage('Static Tests') {
+    stage('Static Test') {
       steps {
         sh './gradlew :check'
         recordIssues enabledForFailure: true, tool: checkStyle(pattern: 'build/reports/checkstyle/*.xml'), sourceCodeEncoding: 'UTF-8'
