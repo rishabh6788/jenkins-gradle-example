@@ -11,10 +11,11 @@ jobs:
           echo A comment on PR $NUMBER
         env:
           NUMBER: ${{ github.event.issue.number }}
-      - run: |
-          echo $EVENT
+      - name: Dump GitHub context
         env:
-          EVENT: ${{ github.event }}
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: |
+          echo "$GITHUB_CONTEXT"
       - name: Setup Java
         uses: actions/setup-java@v1
         with:
