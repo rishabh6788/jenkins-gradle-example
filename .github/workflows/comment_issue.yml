@@ -1,11 +1,13 @@
-name: Run Workflow on PR Comment
-on:
-  issue_comment:
-    types: [created]
+on: issue_comment
+
 jobs:
-  example:
+  pr_commented:
+    # This job only runs for pull request comments
+    name: PR comment
+    if: ${{ github.event.issue.pull_request }}
     runs-on: ubuntu-latest
     steps:
-      - name: Execute for pull request comments only
-        if: github.event.issue.pull_request
-        run: echo "This is a pull request comment event"
+      - run: |
+          echo A comment on PR $NUMBER
+        env:
+          NUMBER: ${{ github.event.issue.number }}
