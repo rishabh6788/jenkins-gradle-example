@@ -1,0 +1,22 @@
+name: Checkout Repository
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  checkout:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          repository: 'noobie3007/jenkins-gradle-example'
+          ref: 'another-branch'
+          token: ${{ secrets.GITHUB_TOKEN }}
+

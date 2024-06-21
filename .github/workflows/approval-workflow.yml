@@ -29,14 +29,18 @@ jobs:
         with:
           script: |
             const prNumber = parseInt('${{ github.event.inputs.pr_number }}');
+            console.log(`Pull Request Number: ${prNumber}`);
+
             const { data: pull_request } = await github.rest.pulls.get({
               owner: context.repo.owner,
               repo: context.repo.repo,
               pull_number: prNumber,
             });
+
+            console.log(`Pull Request Details: ${JSON.stringify(pull_request, null, 2)}`);
             return pull_request;
 
-      - name: Checkout PR submitter's code
+      - name: Checkout PR submitters code
         uses: actions/checkout@v2
         with:
           ref: ${{ steps.get_pr.outputs.head_ref }}
