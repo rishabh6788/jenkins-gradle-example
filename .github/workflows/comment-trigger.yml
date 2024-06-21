@@ -18,7 +18,7 @@ jobs:
         with:
           script: |
             const prNumber = process.env.PR_NUMBER;
-            await github.actions.createWorkflowDispatch({
+            await github.rest.actions.createWorkflowDispatch({
               owner: context.repo.owner,
               repo: context.repo.repo,
               workflow_id: 'approval-workflow.yml',
