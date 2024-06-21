@@ -1,0 +1,30 @@
+name: Comment Triggered Workflow
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  request-approval:
+    if: github.event.issue.pull_request
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up environment variables
+        run: echo "PR_NUMBER=${{ github.event.issue.number }}" >> $GITHUB_ENV
+
+      - name: Trigger Approval Workflow
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const prNumber = process.env.PR_NUMBER;
+            await github.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'approval-workflow.yml',
+              ref: context.ref,
+              inputs: {
+                pr_number: prNumber
+              }
+            });
+
