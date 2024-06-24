@@ -20,7 +20,8 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const prNumber = process.env.PR_NUMBER;
+            const issue = context.payload.issue;
+            const prNumber = issue.number;
             console.log(`Pull Request Number: ${prNumber}`);
 
             const { data: pull_request } = await github.rest.pulls.get({

@@ -9,7 +9,7 @@ public class Library {
 	public Library() {}
 	
     public boolean someLibraryMethod() {
-        return false;
+        return true;
     }
 
     public boolean newLibraryMethod() {
