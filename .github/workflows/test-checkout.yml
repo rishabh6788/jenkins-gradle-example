@@ -11,9 +11,7 @@ jobs:
     steps:
       - name: Set up PR Number Env
         run: |
-          echo A comment on PR $PR_NUMBER
-        env:
-          PR_NUMBER:  ${{ github.event.issue.number }}
+          echo "PR_NUMBER=${{ github.event.pull_request.number }}" >> $GITHUB_ENV
 
       - name: Get PR Details
         id: get_pr
@@ -42,7 +40,7 @@ jobs:
           headRepo=$(echo '${{ steps.get_pr.outputs.result }}' | jq -r '.headRepoFullName')
           headRef=$(echo '${{ steps.get_pr.outputs.result }}' | jq -r '.headRef')
           echo "myHeadRepo=$headRepo" >> $GITHUB_ENV
-          echo "headRef=$headRef" >> $GITHUB_ENV
+          Echo "headRef=$headRef" >> $GITHUB_ENV
       
       - name: Print ENV
         run: |
