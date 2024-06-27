@@ -11,6 +11,9 @@ jobs:
     steps:
       - name: Set up PR Number Env
         run: |
+          echo '${{ github.event.pull_request.number }}'
+          echo "***********************"
+          echo '${{ github.event.issue.number }}'
           echo "PR_NUMBER=${{ github.event.pull_request.number }}" >> $GITHUB_ENV
       - name: Echo GITHUB_ENV
         run: |
