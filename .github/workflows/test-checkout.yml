@@ -12,6 +12,9 @@ jobs:
       - name: Set up PR Number Env
         run: |
           echo "PR_NUMBER=${{ github.event.pull_request.number }}" >> $GITHUB_ENV
+      - name: Echo GITHUB_ENV
+        run: |
+          cat $GITHUB_ENV
 
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -25,9 +28,9 @@ jobs:
           secret: ${{ github.TOKEN }}
           approvers: ${{ steps.get_approvers.outputs.approvers }}
           minimum-approvals: 1
-          issue-title: 'Request to approve/deny benchmark for PR #${{ env.PR_NUMBER }}'
+          issue-title: 'Request to approve/deny benchmark for PR ${{ env.PR_NUMBER }}'
           issue-body: "Please approve or deny the release for PR #${{ env.PR_NUMBER }}"
-          exclude-workflow-initiator-as-approver: true
+          exclude-workflow-initiator-as-approver: false
 
 
       - name: Get PR Details
