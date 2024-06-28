@@ -16,6 +16,7 @@ jobs:
       - name: Echo GITHUB_ENV
         run: |
           cat $GITHUB_ENV
+          echo '${{ github.event }}'
 
       - name: Checkout Repository
         uses: actions/checkout@v3
