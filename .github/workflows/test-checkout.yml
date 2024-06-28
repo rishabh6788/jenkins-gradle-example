@@ -16,7 +16,8 @@ jobs:
       - name: Echo GITHUB_ENV
         run: |
           cat $GITHUB_ENV
-          echo '${{ github.event }}'
+          echo 'Comment is ${{ github.event.comment }}'
+          echo 'Comment made by ${{ github.event.comment.user.login }}'
 
       - name: Checkout Repository
         uses: actions/checkout@v3
