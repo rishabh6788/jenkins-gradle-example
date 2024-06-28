@@ -27,6 +27,7 @@ jobs:
           echo "approvers=$(cat .github/CODEOWNERS | grep '^\*'  | tr -d '* ' | sed 's/@/,/g' | sed 's/,//1')" >> $GITHUB_OUTPUT
           
       - uses: trstringer/manual-approval@v1
+        if: (!contains(steps.get_approvers.outputs.approvers, '${{ github.event.comment.user.login }}'))
         with:
           secret: ${{ github.TOKEN }}
           approvers: ${{ steps.get_approvers.outputs.approvers }}
