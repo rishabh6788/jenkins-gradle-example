@@ -14,4 +14,5 @@ jobs:
           tar zxf opensearch-3.0.0-linux-x64.tar.gz
           cd opensearch-3.0.0
           ls -l
+          echo "$JAVA_HOME"
           ./opensearch-tar-install.sh
