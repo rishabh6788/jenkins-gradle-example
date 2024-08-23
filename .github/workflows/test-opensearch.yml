@@ -1,5 +1,5 @@
 ---
-name: gradle-check
+name: run-opensearch
 
 on: [push, pull_request]
 
@@ -12,6 +12,6 @@ jobs:
           export OPENSEARCH_INITIAL_ADMIN_PASSWORD=myStrongPassword123!
           wget https://ci.opensearch.org/ci/dbc/distribution-build-opensearch/3.0.0/10215/linux/x64/tar/dist/opensearch/opensearch-3.0.0-linux-x64.tar.gz
           tar zxf opensearch-3.0.0-linux-x64.tar.gz
-          cd opensearch-2.16.0
+          cd opensearch-3.0.0
           ls -l
           ./opensearch-tar-install.sh
