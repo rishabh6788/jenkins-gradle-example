@@ -1,0 +1,37 @@
+name: Publish snapshots to maven
+
+on:
+  push
+jobs:
+  test-approvals:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - id: get_approvers
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          result-encoding: string
+          script: |
+            // Get the collaborators - filtered to maintainer permissions
+            const maintainersResponse = await github.request('GET /repos/{owner}/{repo}/collaborators', {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              affiliation: 'all'
+              });
+            console.log(`Approvers: ${maintainersResponse.data.map(item => item.login).join(', ')}`)
+            return maintainersResponse.data.map(item => item.login).join(', ');
+      - uses: trstringer/manual-approval@v1
+        with:
+          secret: ${{ github.TOKEN }}
+          approvers: ${{ steps.get_approvers.outputs.result }}
+          minimum-approvals: 1
+          issue-title: 'Request to approve/deny benchmark run for PR #${{ env.PR_NUMBER }}'
+          issue-body: "Please approve or deny the benchmark run for PR #${{ env.PR_NUMBER }}"
+          exclude-workflow-initiator-as-approver: false

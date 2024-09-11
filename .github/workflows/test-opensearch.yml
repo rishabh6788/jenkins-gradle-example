@@ -1,0 +1,18 @@
+---
+name: run-opensearch
+
+on: [push, pull_request]
+
+jobs:
+  groovy-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run OpenSearch
+        run: |
+          export OPENSEARCH_INITIAL_ADMIN_PASSWORD=myStrongPassword123!
+          wget https://ci.opensearch.org/ci/dbc/distribution-build-opensearch/3.0.0/10215/linux/x64/tar/dist/opensearch/opensearch-3.0.0-linux-x64.tar.gz
+          tar zxf opensearch-3.0.0-linux-x64.tar.gz
+          cd opensearch-3.0.0
+          ls -l
+          echo "$JAVA_HOME"
+          ./opensearch-tar-install.sh
